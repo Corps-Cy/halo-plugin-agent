@@ -123,6 +123,14 @@ const log = {
         renderer.showCursor();
         console.error(`\n${colors.red}✖ ${msg}${colors.reset}`);
         cleanupInput();
+    },
+    // Allows external processes to write to stdout without breaking the renderer
+    suspend: () => {
+        renderer.showCursor();
+        if (renderer.linesRendered > 0) {
+            renderer.render(""); // Clear the ephemeral progress bar/prompt
+        }
+        renderer.linesRendered = 0; // Reset tracking so next render starts fresh
     }
 };
 

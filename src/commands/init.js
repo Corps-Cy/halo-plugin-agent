@@ -40,6 +40,7 @@ async function cmdInit(args) {
 
     // 2. Environment Check (NEW - Enhanced)
     runner.addTask(() => t('env_check_title'), async () => {
+        log.suspend(); 
         // Run checks
         const sys = envChecks.getSystemInfo();
         const status = {
@@ -183,20 +184,28 @@ async function cmdInit(args) {
     runner.addTask(() => t('creating_via_cli'), async () => {
         targetDir = path.join(process.cwd(), projectName);
         
-        // Safety check to prevent overwriting without warning, 
-        // though typically CLI handles it or fails.
-        if (fs.existsSync(targetDir)) {
-             // We won't abort here, assuming user wants to add HPS to existing.
+        // Check if it's already a Halo plugin project to avoid re-creation
+        const isProject = fs.existsSync(targetDir) && (
+            fs.existsSync(path.join(targetDir, 'plugin.yaml')) || 
+            fs.existsSync(path.join(targetDir, 'src/main/resources/plugin.yaml')) ||
+            fs.existsSync(path.join(targetDir, 'build.gradle'))
+        );
+
+        if (isProject) {
+             // Already a project, we assume the user wants to add HPS support to an existing plugin.
         } else {
-            const uiFlag = includeUI ? `--includeUI --uiTool=${uiTool}` : '--no-includeUI';
-            const cmd = `pnpm create halo-plugin ${projectName} --name=${projectName} --domain=${domain} --author=\"$\{author}\" ${uiFlag}`;
+            const uiFlag = includeUI ? `--includeUI --uiTool=${uiTool}` : '--includeUI=false';
+            const authorPart = author ? `--author="${author}"` : '';
+            const cmd = `pnpm create halo-plugin ${projectName} --name=${projectName} --domain=${domain} ${authorPart} ${uiFlag}`;
             
             try {
-                // Using pipe to suppress output unless error
-                execSync(cmd, { stdio: 'pipe' });
+                // Suspend the UI renderer so pnpm can use the terminal
+                log.suspend();
+                console.log(`\n${colors.dim}> ${cmd}${colors.reset}\n`);
+                execSync(cmd, { stdio: 'inherit' });
+                console.log(""); // Add a newline after pnpm finishes
             } catch (e) {
-                const errMsg = e.stderr ? e.stderr.toString() : e.message;
-                throw new Error(`CLI Failed: ${errMsg}`);
+                throw new Error(`CLI Failed: ${e.message}`);
             }
         }
     });
@@ -209,7 +218,8 @@ async function cmdInit(args) {
              [
                 path.join(hpsDir, 'current_state'),
                 path.join(hpsDir, 'changes'),
-                path.join(hpsDir, 'prompts')
+                path.join(hpsDir, 'prompts'),
+                path.join(hpsDir, 'knowledge')
             ].forEach(d => fs.mkdirSync(d, { recursive: true }));
         }
         
@@ -219,6 +229,22 @@ async function cmdInit(args) {
         // Write Config
         const config = { ai_tool: selectedTool, language: getLang(), project_name: projectName };
         fs.writeFileSync(path.join(hpsDir, 'config.json'), JSON.stringify(config, null, 2));
+
+        // Copy Documentation Summaries to local .hps/knowledge (Crucial for non-Cursor tools)
+        try {
+            const resDir = path.join(__dirname, '../../resources/docs_summaries');
+            const targetKBDir = path.join(hpsDir, 'knowledge');
+            if (fs.existsSync(resDir)) {
+                const files = fs.readdirSync(resDir);
+                files.forEach(file => {
+                    if (file.endsWith('.md')) {
+                        fs.copyFileSync(path.join(resDir, file), path.join(targetKBDir, file));
+                    }
+                });
+            }
+        } catch (e) {
+            console.error("Failed to copy knowledge base: " + e.message);
+        }
 
     }, true); // Hidden
 

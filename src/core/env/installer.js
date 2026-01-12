@@ -31,12 +31,12 @@ const installers = {
         install: () => {
             // Try npm first
             if (execSafe('npm --version')) {
-                execSync('npm install -g pnpm', { stdio: 'pipe' });
+                execSync('npm install -g pnpm', { stdio: 'inherit' });
                 return true;
             }
             // Mac brew
             if (PLATFORM === 'darwin' && execSafe('brew --version')) {
-                execSync('brew install pnpm', { stdio: 'pipe' });
+                execSync('brew install pnpm', { stdio: 'inherit' });
                 return true;
             }
             return false;
@@ -47,11 +47,11 @@ const installers = {
         install: () => {
             if (PLATFORM === 'darwin' && execSafe('brew --version')) {
                 // Use Temurin (Adoptium) as it's standard and easy via cask
-                execSync('brew install --cask temurin@17', { stdio: 'pipe' });
+                execSync('brew install --cask temurin@17', { stdio: 'inherit' });
                 return true;
             }
             if (PLATFORM === 'win32' && execSafe('winget --version')) {
-                execSync('winget install -e --id EclipseAdoptium.Temurin.17.JDK', { stdio: 'pipe' });
+                execSync('winget install -e --id EclipseAdoptium.Temurin.17.JDK', { stdio: 'inherit' });
                 return true;
             }
             // Linux: Too varied (apt, yum, dnf, pacman). Skip auto-install.
@@ -62,11 +62,11 @@ const installers = {
         name: "Node.js 18+",
         install: () => {
             if (PLATFORM === 'darwin' && execSafe('brew --version')) {
-                execSync('brew install node@20', { stdio: 'pipe' });
+                execSync('brew install node@20', { stdio: 'inherit' });
                 return true;
             }
             if (PLATFORM === 'win32' && execSafe('winget --version')) {
-                execSync('winget install -e --id OpenJS.NodeJS.LTS', { stdio: 'pipe' });
+                execSync('winget install -e --id OpenJS.NodeJS.LTS', { stdio: 'inherit' });
                 return true;
             }
             // We assume nvm/n might be used, which makes auto-install tricky.

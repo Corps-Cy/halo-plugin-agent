@@ -141,11 +141,19 @@ This project uses the HPS (Halo Plugin Spec) workflow.
 
 ## 📂 Key Files
 - 
-.hps/agent.md
-: **The Brain**. Defines AI role and rules.
+.hps/config.json
+: CLI and AI configuration.
 - 
 .hps/project.md
-: Project-specific constraints.
+: Project-specific constraints and high-level architecture.
+- 
+.hps/knowledge/
+: **Halo Expert Knowledge Base**. This directory contains detailed technical documentation for Halo 2.x plugin development.
+
+## 🧠 AI Instruction
+When you need detailed technical information about Halo (e.g., Extension Points, Reconcilers, UI Components), please refer to the markdown files in the 
+.hps/knowledge/
+ directory. 
 `,
 
     hpsProjectSpec: (name) => `# HPS Project Spec: ${name}
