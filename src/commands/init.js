@@ -199,11 +199,13 @@ async function cmdInit(args) {
             const cmd = `pnpm create halo-plugin ${projectName} --name=${projectName} --domain=${domain} ${authorPart} ${uiFlag}`;
             
             try {
-                // Suspend the UI renderer so pnpm can use the terminal
+                // AI NOTE: Must use log.suspend() and stdio: 'inherit'. 
+                // 'pipe' will freeze the process if pnpm asks for input.
+                // log.suspend() is required to reset the custom terminal renderer.
                 log.suspend();
                 console.log(`\n${colors.dim}> ${cmd}${colors.reset}\n`);
                 execSync(cmd, { stdio: 'inherit' });
-                console.log(""); // Add a newline after pnpm finishes
+                console.log(""); 
             } catch (e) {
                 throw new Error(`CLI Failed: ${e.message}`);
             }
