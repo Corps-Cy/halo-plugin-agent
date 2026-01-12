@@ -13,6 +13,7 @@ const cmdContext = require('../src/commands/context');
 const cmdApply = require('../src/commands/apply');
 const cmdCode = require('../src/commands/code');
 const cmdStart = require('../src/commands/start');
+const cmdDoctor = require('../src/commands/doctor');
 
 // Get Version from package.json (Up one level)
 let version = 'unknown';
@@ -45,6 +46,7 @@ function showHelp() {
     console.log(`  ${c.green}hps init${c.reset} ${pad('[name]')} ${c.dim}Initialize HPS project & specs${c.reset}`);
     console.log(`  ${c.green}hps new${c.reset}  ${pad('<feature>')} ${c.dim}Draft a new feature spec${c.reset}`);
     console.log(`  ${c.green}hps code${c.reset} ${pad('<feature>')} ${c.dim}Generate AI coding prompts${c.reset}`);
+    console.log(`  ${c.green}hps doctor${c.reset} ${pad('')} ${c.dim}Check & fix environment${c.reset}`);
     console.log(`  ${c.green}hps start${c.reset} ${c.dim}(deprecated)${c.reset}   Launch AI tool`);
     console.log(`  ${c.green}hps context${c.reset} ${c.dim}(internal)${c.reset}     Assemble context`);
     console.log(`  ${c.green}hps apply${c.reset} ${c.dim}(internal)${c.reset}       Merge specs`);
@@ -71,6 +73,8 @@ const command = args[0];
 
         if (command === 'init') {
             await cmdInit(args.slice(1));
+        } else if (command === 'doctor') {
+            await cmdDoctor(args.slice(1));
         } else if (command === 'new') {
             await cmdNew(args.slice(1));
         } else if (command === 'start') {

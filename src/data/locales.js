@@ -49,6 +49,33 @@ const locales = {
         creating_workspace: "Creating workspace for \"{name}\"...",
         workspace_created: "Workspace created at {path}",
 
+        // Init Wizard
+        input_project_name: "Please input Project Name:",
+        input_domain: "Please input Domain/Group (e.g. com.example):",
+        input_author: "Please input Author:",
+        
+        ui_enable_title: "Enable Admin Console UI?",
+        ui_opt_rsbuild: "Yes, use Rsbuild (Recommended, Faster)",
+        ui_opt_vite: "Yes, use Vite (Standard)",
+        ui_opt_none: "No, Backend only",
+
+        creating_via_cli: "Scaffolding Project (Official CLI)...",
+
+        // Environment Checks
+        env_check_title: "Checking Environment Requirements",
+        check_os: "System: {os} ({arch})",
+        check_java: "Java: {status}",
+        check_node: "Node.js: {status}",
+        check_docker: "Docker: {status}",
+        check_pnpm: "pnpm: {status}",
+        
+        warn_java: "⚠️ Java 17+ is required for Halo 2.x backend.",
+        warn_docker: "⚠️ Docker is recommended for easy preview (haloServer).",
+        warn_pnpm: "❌ pnpm is required. Please install it: npm i -g pnpm",
+        
+        advice_no_docker: "💡 No Docker? You can run Halo via local source code (Method B).",
+        advice_no_docker_link: "👉 Guide: https://docs.halo.run/developer-guide/plugin/hello-world",
+
         // Prompt Templates
         system_identity: "# SYSTEM IDENTITY: Halo Plugin Architect",
         role_desc: "You are an expert in developing plugins for Halo 2.x.\nYour goal is to assist the user in designing and implementing high-quality, compliant plugins.",
@@ -106,6 +133,33 @@ const locales = {
         creating_workspace: "正在为 \"{name}\" 创建工作区...",
         workspace_created: "工作区已创建于 {path}",
 
+        // Init Wizard
+        input_project_name: "请输入插件名称 (Project Name):",
+        input_domain: "请输入域名/包组名 (Domain/Group, e.g. com.example):",
+        input_author: "请输入作者 (Author):",
+        
+        ui_enable_title: "是否启用管理端 UI (Admin Console)?",
+        ui_opt_rsbuild: "启用，使用 Rsbuild (推荐，构建更快)",
+        ui_opt_vite: "启用，使用 Vite (标准)",
+        ui_opt_none: "不启用 (仅后端)",
+
+        creating_via_cli: "正在调用官方脚手架生成代码...",
+
+        // Environment Checks
+        env_check_title: "正在检查环境依赖",
+        check_os: "系统: {os} ({arch})",
+        check_java: "Java 环境: {status}",
+        check_node: "Node.js 环境: {status}",
+        check_docker: "Docker 运行状态: {status}",
+        check_pnpm: "pnpm 包管理器: {status}",
+
+        warn_java: "⚠️ Halo 2.x 后端开发强制要求 Java 17+。",
+        warn_docker: "⚠️ 推荐安装 Docker 以便使用 haloServer 快速预览。",
+        warn_pnpm: "❌ 未检测到 pnpm，这是 Halo 插件开发的必要工具。请安装: npm i -g pnpm",
+
+        advice_no_docker: "💡 未检测到 Docker？您可以通过本地源码运行 Halo (方式 B)。",
+        advice_no_docker_link: "👉 查看指南: https://docs.halo.run/developer-guide/plugin/hello-world",
+
         // Prompt Templates
         system_identity: "# 系统身份: Halo 插件架构师",
         role_desc: "你是 Halo 2.x 插件开发的顶级专家。\n你的目标是辅助用户设计并实现高质量、符合官方规范的插件。",
@@ -161,7 +215,36 @@ const locales = {
         feature_name_required: "機能名は必須です。",
         feature_exists: "機能 \"{name}\" は既に存在します。",
         creating_workspace: "\"{name}\" のワークスペースを作成中...",
-        workspace_created: "ワークスペースが {path} に作成されました"
+        workspace_created: "ワークスペースが {path} に作成されました",
+
+        // Init Wizard
+        input_project_name: "プラグイン名を入力してください (Project Name):",
+        input_domain: "ドメイン/グループ名を入力 (Domain/Group, e.g. com.example):",
+        input_author: "作成者を入力 (Author):",
+
+        ui_enable_title: "管理画面UIを有効にしますか？",
+        ui_opt_rsbuild: "はい、Rsbuildを使用 (推奨、高速)",
+        ui_opt_vite: "はい、Viteを使用 (標準)",
+        ui_opt_none: "いいえ (バックエンドのみ)",
+
+        creating_via_cli: "公式CLIを使用してプロジェクトを作成中...",
+
+        // Environment Checks
+        env_check_title: "環境要件をチェック中",
+        check_os: "システム: {os} ({arch})",
+        check_java: "Java: {status}",
+        check_node: "Node.js: {status}",
+        check_docker: "Docker: {status}",
+        check_pnpm: "pnpm: {status}",
+        
+        warn_java: "⚠️ Halo 2.x バックエンドには Java 17+ が必要です。",
+        warn_docker: "⚠️ haloServer でのプレビューには Docker が推奨されます。",
+        warn_pnpm: "❌ pnpm が見つかりません。インストールしてください: npm i -g pnpm",
+
+        advice_no_docker: "💡 Dockerがありませんか？ ローカルソースコード経由でHaloを実行できます（方法B）。",
+        advice_no_docker_link: "👉 ガイド: https://docs.halo.run/developer-guide/plugin/hello-world",
+
+        // Prompt Templates
     }
 };
 

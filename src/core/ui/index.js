@@ -66,6 +66,7 @@ function render() {
 
 function setupInput() {
     if (process.stdin.isTTY) {
+        process.stdin.resume();
         readline.emitKeypressEvents(process.stdin);
         process.stdin.setRawMode(true);
         process.stdin.on('keypress', handleKeypress);
@@ -151,7 +152,8 @@ class TaskRunner {
         
         let index = 0;
 
-        render(); 
+        // REMOVED: Initial Render (loop handles it)
+        // render(); 
 
         while (index < this.tasks.length) {
             const task = this.tasks[index];
@@ -164,6 +166,7 @@ class TaskRunner {
             state.tasks.current = currentVisible;
             state.tasks.name = taskName;
             
+            // Render BEFORE the task execution to show updated progress/name
             render(); 
 
             try {
@@ -215,4 +218,44 @@ function selectOption(question, options) {
     });
 }
 
-module.exports = { colors, log, TaskRunner, selectOption, BACK_SIGNAL };
+function askQuestion(query) {
+    if (!process.stdin.isTTY) return Promise.resolve('default');
+    
+    return new Promise(resolve => {
+        if (process.stdin.isTTY) process.stdin.setRawMode(false);
+        process.stdin.removeListener('keypress', handleKeypress);
+        
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        renderer.showCursor();
+        
+        // Use a clean prompt format
+        const promptText = `\n${colors.cyan}? ${query}${colors.reset} `;
+        
+        rl.question(promptText, (answer) => {
+            rl.close();
+            renderer.hideCursor();
+            
+            // CLEANUP: 
+            // 1. Move cursor up to the line where prompt started.
+            //    Prompt starts with \n, so it's 1 line down from where render() left off.
+            //    Plus user input + enter might add another line?
+            //    Let's move up 2 lines (Prompt + Input/Newline) and clear down.
+            
+            // Note: This assumes the prompt+input didn't wrap multiple lines.
+            readline.moveCursor(process.stdout, 0, -2);
+            readline.clearScreenDown(process.stdout);
+            
+            if (process.stdin.isTTY) process.stdin.setRawMode(true);
+            process.stdin.on('keypress', handleKeypress);
+            process.stdin.resume();
+            
+            resolve(answer.trim());
+        });
+    });
+}
+
+module.exports = { colors, log, TaskRunner, selectOption, askQuestion, BACK_SIGNAL };
