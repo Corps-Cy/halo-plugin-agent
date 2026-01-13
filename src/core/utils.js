@@ -51,6 +51,8 @@ function getHaloContext() {
     const resDir = getResourcesPath();
     const masterSpec = readFileSafe(path.join(resDir, 'ai_specs', '00_master_spec.md'));
     const collabManual = readFileSafe(path.join(resDir, 'ai_specs', '01_collaboration_manual.md'));
+    // Force include Strict Anti-Patterns
+    const antiPatterns = readFileSafe(path.join(resDir, 'ai_specs', 'STRICT_RULES.md'));
 
     let docIndex = "";
     const docDir = path.join(resDir, 'docs_summaries');
@@ -59,7 +61,7 @@ function getHaloContext() {
         docIndex = files.map(f => `- ${f}`).join('\n');
     }
 
-    return { masterSpec, collabManual, docIndex };
+    return { masterSpec, collabManual, docIndex, antiPatterns };
 }
 
 function generateContextContent(context) {
@@ -69,6 +71,7 @@ function generateContextContent(context) {
     // Ensure no undefined values
     const masterSpec = context.masterSpec || "";
     const collabManual = context.collabManual || "";
+    const antiPatterns = context.antiPatterns || "";
     const docIndex = context.docIndex || "";
 
     return `${txt.system_identity}
@@ -78,6 +81,8 @@ ${txt.kb_title}
 
 ${txt.master_spec_title}
 ${masterSpec}
+
+${antiPatterns}
 
 ${txt.collab_title}
 ${collabManual}
@@ -94,7 +99,9 @@ ${txt.inst_3}
 }
 
 function getSmartContext(userRequirement) {
-    const sourceDocsDir = path.join(getResourcesPath(), 'docs_summaries');
+    const resDir = getResourcesPath();
+    const sourceDocsDir = path.join(resDir, 'docs_summaries');
+    const antiPatternsPath = path.join(resDir, 'ai_specs', 'STRICT_RULES.md');
     
     if (!fs.existsSync(sourceDocsDir)) {
         return { content: "Warning: Documentation library not found in package.", stats: { total: 0, loaded: 0 } };
@@ -113,6 +120,12 @@ function getSmartContext(userRequirement) {
     });
 
     let combinedContent = "";
+    
+    // Always inject Anti-Patterns first
+    if (fs.existsSync(antiPatternsPath)) {
+        combinedContent += readFileSafe(antiPatternsPath) + "\n\n";
+    }
+
     let loadedCount = 0;
 
     loadedDocs.forEach(docFile => {

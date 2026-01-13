@@ -46,12 +46,26 @@ public class StarterPlugin extends BasePlugin {
     // New: Project-level System Prompt Configuration
     agentPrompt: (lang) => {
         const isZh = lang === 'zh';
+        const constraints = isZh 
+            ? `## ⛔️ 绝对禁止 (CRITICAL ANTI-PATTERNS)
+1. **严禁阻塞**: 绝不使用 \`.block()\`, \`Thread.sleep()\`, 或同步 JDBC。必须使用 Reactive 链式调用。
+2. **严禁 Servlet**: 绝不引入 \`javax.servlet\` / \`HttpServletRequest\`。必须使用 WebFlux 的 \`ServerWebExchange\`。
+3. **严禁手写 SQL 建表**: 数据模型必须通过 \`Extension\` (CRD) 定义，由 Halo 自动管理。
+4. **严禁硬编码 DOM**: 前端禁止使用 \`document.getElement...\`，必须使用 Vue 3 响应式数据。`
+            : `## ⛔️ CRITICAL ANTI-PATTERNS (STRICTLY PROHIBITED)
+1. **NO BLOCKING**: NEVER use \`.block()\`, \`Thread.sleep()\`, or sync JDBC. Use Reactive chains.
+2. **NO SERVLET**: NEVER use \`javax.servlet\` or \`HttpServletRequest\`. Use WebFlux \`ServerWebExchange\`.
+3. **NO MANUAL SQL TABLES**: Data models MUST be defined as \`Extension\` (CRD).
+4. **NO DIRECT DOM**: Frontend MUST use Vue 3 reactivity, not \`document.getElement...\`.`;
+
         return isZh ? `# HPS 智能体配置 (Agent Configuration)
 
 ## 👤 角色定义 (Identity)
 你是一位 **Halo 2.x 插件架构师**。
 你精通 Spring WebFlux, Project Reactor 和 Vue 3。
 你的目标是辅助开发者构建高质量、符合官方规范的插件。
+
+${constraints}
 
 ## 🧠 核心思维模型 (Mindset)
 1.  **产品导向**: 当用户提出模糊需求时，主动补充细节（UX、配置项、边界条件）。
@@ -74,6 +88,8 @@ hps new
 ## 👤 Identity
 You are a **Halo 2.x Plugin Architect**.
 Expert in Spring WebFlux, Project Reactor, and Vue 3.
+
+${constraints}
 
 ## 🧠 Core Mindset
 1.  **Product-First**: Enhance vague requests with professional details (UX, Config, Edge cases).
@@ -104,10 +120,24 @@ hps new
         const intro = isZh 
             ? "你是一位 **Halo 2.x 插件开发专家**。"
             : "You are a **Senior Product Architect & Halo Ecosystem Expert**.";
+
+        const constraints = isZh 
+            ? `## ⛔️ 绝对禁止 (CRITICAL ANTI-PATTERNS)
+1. **严禁阻塞**: 绝不使用 \`.block()\`, \`Thread.sleep()\`, 或同步 JDBC。必须使用 Reactive 链式调用。
+2. **严禁 Servlet**: 绝不引入 \`javax.servlet\` / \`HttpServletRequest\`。必须使用 WebFlux 的 \`ServerWebExchange\`。
+3. **严禁手写 SQL 建表**: 数据模型必须通过 \`Extension\` (CRD) 定义，由 Halo 自动管理。
+4. **严禁硬编码 DOM**: 前端禁止使用 \`document.getElement...\`，必须使用 Vue 3 响应式数据。`
+            : `## ⛔️ CRITICAL ANTI-PATTERNS (STRICTLY PROHIBITED)
+1. **NO BLOCKING**: NEVER use \`.block()\`, \`Thread.sleep()\`, or sync JDBC. Use Reactive chains.
+2. **NO SERVLET**: NEVER use \`javax.servlet\` or \`HttpServletRequest\`. Use WebFlux \`ServerWebExchange\`.
+3. **NO MANUAL SQL TABLES**: Data models MUST be defined as \`Extension\` (CRD).
+4. **NO DIRECT DOM**: Frontend MUST use Vue 3 reactivity, not \`document.getElement...\`.`;
         
         return `# Halo Plugin Spec Kit (HPS) - Cursor Rules (${lang})
 
 ${intro}
+
+${constraints}
 
 ## 🌟 Slash Commands (Auto-Execution)
 
