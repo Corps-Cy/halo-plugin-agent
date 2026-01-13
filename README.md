@@ -1,6 +1,6 @@
 # Halo Plugin Spec Kit (HPS)
 
-> **The AI-Native Infrastructure for Halo 2.x Plugin Development**
+> **The AI-Native Infrastructure for Halo 2.x Plugin Development (V2.0)**
 
 [![NPM Version](https://img.shields.io/npm/v/@cysupper/halo-plugin-spec-kit?color=cyan)](https://www.npmjs.com/package/@cysupper/halo-plugin-spec-kit)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -8,33 +8,16 @@
 
 [🇨🇳 中文文档](README_zh.md) | [🐞 Report Issue](https://github.com/Corps-Cy/halo.plugin.spec-kit/issues)
 
-HPS is an **AI Product Architect** toolkit that turns your vague ideas into production-ready Halo 2.x plugins using **Agentic Workflow** and **Smart Context**.
+HPS is an **AI Product Architect** toolkit that turns your vague ideas into production-ready Halo 2.x plugins using **Topic-Based Smart Context** and **Strict Anti-Pattern Firewall**.
 
 ---
 
-## 📦 Installation
+## 🌟 What's New in V2.0?
 
-We provide three ways to install HPS. **Option 1 is highly recommended.**
-
-### Option 1: Via NPM (Recommended ⭐)
-The easiest way to stay updated.
-```bash
-npm install -g @cysupper/halo-plugin-spec-kit
-```
-
-### Option 2: Direct from GitHub
-Install directly using the GitHub URL (no clone needed).
-```bash
-npm install -g github:Corps-Cy/halo.plugin.spec-kit
-```
-
-### Option 3: Manual from Release (Offline/Dev)
-1. Download the latest `.zip` or `.tar.gz` from [GitHub Releases](https://github.com/Corps-Cy/halo.plugin.spec-kit/releases).
-2. Extract the archive.
-3. In the directory, run:
-```bash
-npm install -g .
-```
+-   **🛡️ Strict Rules Engine**: Injects a "Criminal Code" (`STRICT_RULES.md`) to forbid AI from using `.block()`, Servlet APIs, or manual SQL—preventing infinite error loops.
+-   **📚 Topic-Based Knowledge**: Replaced 90+ fragmented files with **11 high-density core topic documents** for 300% faster AI context loading.
+-   **⚙️ Halo 2.22+ Ready**: Fully aligned with the latest architecture (Synchronous Reconcilers, Snapshot-based content, Iconify system).
+-   **🛠️ Verified Patterns**: All code templates are extracted from official core plugins (e.g., `plugin-s3`).
 
 ---
 
@@ -44,37 +27,34 @@ npm install -g .
 ```bash
 hps init my-awesome-plugin
 ```
-*Follow the wizard to setup 'zh/en/ja' and your AI tool. HPS will auto-launch the AI for you.*
+*HPS configures `.cursorrules` or `HPS.md` with the new strict rules automatically.*
 
 ### 2. "I want a feature..."
-In your AI Chat (Cursor/Gemini), just say:
+In your AI Chat (Cursor/Gemini), simply say:
 > **"I want to build a Article Reward feature."**
 
 ### 3. AI Architect Mode (Draft)
-The AI automatically runs `hps new` and **drafts a professional spec** (Models, UX flow).
+The AI automatically runs `hps new` and **drafts a professional spec** following the new Topic-based standards.
 
 ### 4. AI Developer Mode (Code)
-Once approved, the AI runs `hps code` to load **relevant Halo docs** and generate code.
+Once approved, the AI runs `hps code` to inject **topic-specific context** (Logic, UI, Security) and generates error-free code.
 
 ---
 
-## 🧩 Feature Matrix
+## 📦 Installation
 
-| Feature | Status | AI Support | Level |
-| :--- | :---: | :--- | :---: |
-| Agentic Workflow | ✅ | **Cursor IDE** | L4 (Best) |
-| Smart Context | ✅ | **Gemini CLI** | L4 (Best) |
-| Seamless Launch | ✅ | **Claude Code** | L3 (Beta) |
-| i18n (En/Zh/Ja) | ✅ | GitHub Copilot | L2 |
+```bash
+npm install -g @cysupper/halo-plugin-spec-kit
+```
 
 ---
 
 ## 🛠 Command Reference
 
-*   `hps init [name]`: Create project & setup AI context.
-*   `hps start`: Launch AI environment manually.
-*   `hps new <feat>`: (Agent) Draft a feature specification.
-*   `hps code <feat>`: (Agent) Generate code with smart context.
+*   `hps init [name]`: Initialize project with V2.0 AI context.
+*   `hps doctor`: Self-check & fix environment (JDK 21, pnpm 10).
+*   `hps new <feat>`: (Agent) Draft a new feature specification.
+*   `hps code <feat>`: (Agent) Generate code with high-density topic context.
 
 ## 📄 License
 
