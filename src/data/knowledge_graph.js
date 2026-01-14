@@ -52,7 +52,8 @@ const knowledgeMap = [
 // Always include these foundation docs
 const coreDocs = [
     '04_framework.md', // Architecture Overview
-    '00_master_spec.md' // Critical Rules
+    '00_master_spec.md', // Critical Rules
+    '02_java_import_reference.md' // Class & Import Lookup
 ];
 
 module.exports = {

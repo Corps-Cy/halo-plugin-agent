@@ -1,6 +1,6 @@
 {
   "name": "@cysupper/halo-plugin-spec-kit",
-  "version": "1.2.0-rc.4",
+  "version": "1.2.0-rc.5",
   "description": "Halo Plugin Specification Kit CLI - AI-Driven Plugin Development",
   "main": "bin/hps.js",
   "bin": {

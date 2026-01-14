@@ -51,6 +51,7 @@ function getHaloContext() {
     const resDir = getResourcesPath();
     const masterSpec = readFileSafe(path.join(resDir, 'ai_specs', '00_master_spec.md'));
     const collabManual = readFileSafe(path.join(resDir, 'ai_specs', '01_collaboration_manual.md'));
+    const javaImportRef = readFileSafe(path.join(resDir, 'ai_specs', '02_java_import_reference.md'));
     // Force include Strict Anti-Patterns
     const antiPatterns = readFileSafe(path.join(resDir, 'ai_specs', 'STRICT_RULES.md'));
 
@@ -61,7 +62,7 @@ function getHaloContext() {
         docIndex = files.map(f => `- ${f}`).join('\n');
     }
 
-    return { masterSpec, collabManual, docIndex, antiPatterns };
+    return { masterSpec, collabManual, docIndex, antiPatterns, javaImportRef };
 }
 
 function generateContextContent(context) {
@@ -72,6 +73,7 @@ function generateContextContent(context) {
     const masterSpec = context.masterSpec || "";
     const collabManual = context.collabManual || "";
     const antiPatterns = context.antiPatterns || "";
+    const javaImportRef = context.javaImportRef || "";
     const docIndex = context.docIndex || "";
 
     return `${txt.system_identity}
@@ -81,6 +83,8 @@ ${txt.kb_title}
 
 ${txt.master_spec_title}
 ${masterSpec}
+
+${javaImportRef}
 
 ${antiPatterns}
 
@@ -101,7 +105,8 @@ ${txt.inst_3}
 function getSmartContext(userRequirement) {
     const resDir = getResourcesPath();
     const sourceDocsDir = path.join(resDir, 'docs_summaries');
-    const antiPatternsPath = path.join(resDir, 'ai_specs', 'STRICT_RULES.md');
+    const aiSpecsDir = path.join(resDir, 'ai_specs'); // Add ai_specs as a source
+    const antiPatternsPath = path.join(aiSpecsDir, 'STRICT_RULES.md');
     
     if (!fs.existsSync(sourceDocsDir)) {
         return { content: "Warning: Documentation library not found in package.", stats: { total: 0, loaded: 0 } };
@@ -129,9 +134,16 @@ function getSmartContext(userRequirement) {
     let loadedCount = 0;
 
     loadedDocs.forEach(docFile => {
-        const p = path.join(sourceDocsDir, docFile);
-        if (fs.existsSync(p)) {
-            const content = fs.readFileSync(p, 'utf8');
+        // Try finding the file in docs_summaries first, then ai_specs
+        const pathInDocs = path.join(sourceDocsDir, docFile);
+        const pathInSpecs = path.join(aiSpecsDir, docFile);
+        
+        if (fs.existsSync(pathInDocs)) {
+            const content = fs.readFileSync(pathInDocs, 'utf8');
+            combinedContent += `\n\n# Reference: ${docFile}\n${content}`;
+            loadedCount++;
+        } else if (fs.existsSync(pathInSpecs)) {
+            const content = fs.readFileSync(pathInSpecs, 'utf8');
             combinedContent += `\n\n# Reference: ${docFile}\n${content}`;
             loadedCount++;
         }

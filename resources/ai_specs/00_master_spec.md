@@ -22,6 +22,10 @@
 
 ## 2. 后端开发规范 (Backend Standards)
 
+> ⚠️ **IMPORTS CHECK (导包强制检查)**
+> 在编写 Java 代码之前，**必须** 查阅 `02_java_import_reference.md` 获取正确的包路径。
+> **严禁** 臆造包名（如 `com.halo.core...` 都是错误的），必须使用 `run.halo.app...` 开头的标准路径。
+
 ### 2.1 资源定义 (Extension)
 所有业务实体必须定义为 Extension。
 
