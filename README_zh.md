@@ -1,52 +1,98 @@
-# Halo Plugin Spec Kit (HPS)
+# Halo Plugin Spec Kit (HPS) - Agentic Edition
 
-> **Halo 2.x 插件开发的 AI 原生基础设施 (V2.0)**
+<p align="center">
+  <img src="https://img.shields.io/npm/v/@cysupper/halo-plugin-spec-kit" alt="npm version" />
+  <img src="https://img.shields.io/badge/Halo-2.x-blue" alt="Halo 2.x" />
+  <img src="https://img.shields.io/badge/AI-Agentic-purple" alt="AI Agent Ready" />
+</p>
 
-[![NPM Version](https://img.shields.io/npm/v/@cysupper/halo-plugin-spec-kit?color=cyan)](https://www.npmjs.com/package/@cysupper/halo-plugin-spec-kit)
-![License](https://img.shields.io/badge/License-MIT-green)
+> **让 AI 真正学会开发 Halo 插件。**
+> HPS 不仅仅是一个脚手架，它是一个**AI 技能包 (Agentic Skill)** 分发器。它将 Halo 2.x 的核心架构、开发规范、反模式（Anti-Patterns）打包成专家级 Skill，赋能 Opencode, Cursor, Windsurf, Trae 等 AI 代理，使其具备“全自动开发”插件的能力。
 
-[English Documentation](README.md) | [🐞 提交反馈](https://github.com/Corps-Cy/halo.plugin.spec-kit/issues)
+## 🎥 演示
 
-HPS 是一个驻扎在终端里的 **"AI 产品架构师"**。V2.0 版本引入了**主题化知识图谱**与**强约束防火墙**，能彻底解决 AI 写出阻塞代码、导错包等导致死循环报错的痛点。
+![Demo](docs/screencast/demo.gif)
 
----
+## 🌟 核心特性
 
-## 🌟 V2.0 重大更新
+- **🧠 Agentic Skill**: 内置 `halo-plugin-builder` 技能，包含 Reactive 编程、Extension 建模、Vue3 UI 等全套知识库。
+- **🛡️ 严格风控**: 植入 `STRICT_RULES`，强制 AI 遵守非阻塞 I/O 原则，防止生成导致系统崩溃的代码。
+- **🚀 一键初始化**: 集成官方 `pnpm create halo-plugin`，并自动为当前项目注入 AI 技能。
+- **🩺 环境诊断**: `hps doctor` 自动检查 Java, Node, Docker 环境。
 
--   **🛡️ 强约束规则引擎**: 引入《严禁行为清单》(`STRICT_RULES.md`)，强制 AI 禁止使用 `.block()`、Servlet API 或手动 SQL，从源头杜绝编译错误。
--   **📚 主题化知识库**: 将原本 90+ 个碎片文件整合为 **11 个高密度核心主题文档**，AI 上下文加载速度提升 300%，逻辑连贯性大幅增强。
--   **⚙️ 完美适配 Halo 2.22+**: 针对最新架构进行了深度校准（包括同步 Reconciler 签名、Snapshot 内容存储机制、Iconify 图标系统等）。
--   **🛠️ 官方生产级范式**: 核心代码模板直接提取自官方插件（如 `plugin-s3`），确保生成的代码不仅能跑通，而且符合最佳实践。
+## 📦 安装
 
----
+```bash
+npm install -g @cysupper/halo-plugin-spec-kit
+```
 
-## 🚀 快速开始 (对话式开发)
+或者直接使用 `npx`：
+
+```bash
+npx @cysupper/halo-plugin-spec-kit init
+```
+
+## 🛠️ 使用指南
 
 ### 1. 初始化项目
+
+在一个空目录下运行：
+
 ```bash
-hps init my-awesome-plugin
+hps init <project-name>
 ```
-*HPS 会自动为你的 AI 工具（Cursor/Gemini 等）配置最新的强约束规则和知识库。*
 
-### 2. “我想做一个功能...”
-在 AI 聊天框中直接输入：
-> **“我想做一个‘文章打赏’功能。”**
+- **选择 AI Agent**: 支持 Opencode, Cursor, Windsurf, Trae, Claude 等。
+- **自动配置**: 工具会自动下载官方模板，并将 `halo-plugin-builder` Skill 安装到对应的规则目录（如 `.opencode/skills/` 或 `.cursor/rules/`）。
 
-### 3. AI 架构师模式 (起草)
-AI 会自动运行 `hps new`，并按照最新的主题化标准为你**起草一份专业的产品规格书**。
+### 2. 开始 AI 编码
 
-### 4. AI 工程师模式 (编码)
-确认方案后，AI 会自动运行 `hps code`，**精准注入**（逻辑、UI、安全等）主题上下文并生成高质量代码。
+项目创建完成后，打开您的 AI 编辑器（Opencode / Cursor / Trae），直接用自然语言下达指令：
+
+> **"帮我开发一个简单的留言板功能，需要定义一个 Message 模型，并提供后台管理界面。"**
+
+AI 会自动触发 `halo-plugin-builder` 技能：
+1.  **架构设计**: 引用 `architecture.md`，决定创建 `Extension` 而非 MySQL 表。
+2.  **代码生成**: 引用 `backend_deep_dive.md` 生成 `Reconciler` 和 `Extension` Java 代码。
+3.  **UI 开发**: 引用 `frontend_deep_dive.md` 生成 Vue 3 管理页面。
+4.  **自我审查**: 检查是否违反 `strict_rules.md`（如使用了 Thread.sleep）。
+
+### 3. 手动安装 Skill (已有项目)
+
+如果您已经有一个 Halo 插件项目，只想安装 AI 技能：
+
+```bash
+cd my-existing-plugin
+hps skill
+```
+
+## 📂 Skill 包含的知识库
+
+安装后，您的项目下会多出 `.opencode/skills/halo-plugin-builder` (或类似目录)，包含：
+
+- **`SKILL.md`**: 核心指令集。
+- **`references/`**:
+    - `backend_deep_dive.md`: Spring WebFlux & R2DBC 深度指南。
+    - `frontend_deep_dive.md`: Console UI 组件库指南。
+    - `strict_rules.md`: **[关键]** 开发红线。
+    - `architecture.md`: Halo 2.x 架构图解。
+- **`assets/templates/`**: 标准化代码模板。
+
+## 🤖 支持的 AI 环境
+
+| AI Agent / IDE | 支持程度 | 安装路径 |
+| :--- | :--- | :--- |
+| **Opencode Agent** | ⭐⭐⭐⭐⭐ | `.opencode/skills/` (原生支持) |
+| **Cursor IDE** | ⭐⭐⭐⭐⭐ | `.cursor/rules/` (原生支持) |
+| **Windsurf IDE** | ⭐⭐⭐⭐⭐ | `.windsurf/rules/` (原生支持) |
+| **Trae IDE** | ⭐⭐⭐⭐⭐ | `.trae/rules/` (原生支持) |
+| **Claude / Copilot** | ⭐⭐⭐ | `.hps/skills/` (需手动复制 Prompt) |
+
+## 🔗 相关链接
+
+- [Halo 官方文档](https://docs.halo.run)
+- [Halo 插件开发指南](https://docs.halo.run/category/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91)
 
 ---
 
-## 🛠 手动命令参考
-
-*   `hps init [项目名]`: 初始化项目并注入 V2.0 AI 上下文。
-*   `hps doctor`: 环境自检与修复（支持 JDK 21, pnpm 10）。
-*   `hps new <功能名>`: (AI 专用) 起草符合 V2.0 规范的功能规格书。
-*   `hps code <功能名>`: (AI 专用) 注入高密度主题上下文生成代码。
-
-## 📄 许可证
-
-MIT © [Corps-Cy](https://github.com/Corps-Cy)
+<p align="center">Made with ❤️ by Halo Community & AI</p>

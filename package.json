@@ -1,7 +1,7 @@
 {
   "name": "@cysupper/halo-plugin-spec-kit",
-  "version": "1.2.0-rc.5",
-  "description": "Halo Plugin Specification Kit CLI - AI-Driven Plugin Development",
+  "version": "2.0.0",
+  "description": "Agentic Skill Distributor & CLI for Halo 2.x Plugin Development",
   "main": "bin/hps.js",
   "bin": {
     "hps": "./bin/hps.js"
@@ -9,7 +9,8 @@
   "files": [
     "bin",
     "src",
-    "resources"
+    "resources",
+    "skills"
   ],
   "engines": {
     "node": ">=14.0.0"

@@ -170,5 +170,68 @@ module.exports = {
     getHaloContext,
     generateContextContent,
     getSmartContext,
-    copyToClipboard
+    copyToClipboard,
+    installSkill
 };
+
+function installSkill(targetDir, toolType) {
+    const skillName = 'halo-plugin-builder';
+    // When running linked, __dirname is src/core, so ../../skills is correct
+    const sourceDir = path.join(__dirname, '../../skills', skillName);
+
+    if (!fs.existsSync(sourceDir)) {
+        // Fallback: If running from dist/ or different structure, try to find it
+        return `Warning: Skill source not found at ${sourceDir}. Skipping skill installation.`;
+    }
+
+    let destDir;
+    let relativeDest;
+
+    if (toolType === 'opencode') {
+        // Opencode standard: .opencode/skills/<skill-name>
+        destDir = path.join(targetDir, '.opencode', 'skills', skillName);
+        relativeDest = '.opencode/skills/' + skillName;
+    } else if (toolType === 'cursor') {
+        // Cursor standard: .cursor/rules/<skill-name> (Directory mode supported by some plugins)
+        // Or we can just put it in .cursor/skills and refer to it manually
+        destDir = path.join(targetDir, '.cursor', 'rules', skillName);
+        relativeDest = '.cursor/rules/' + skillName;
+    } else if (toolType === 'windsurf') {
+         // Windsurf standard: .windsurf/rules/
+         destDir = path.join(targetDir, '.windsurf', 'rules', skillName);
+         relativeDest = '.windsurf/rules/' + skillName;
+    } else if (toolType === 'trae') {
+         // Trae IDE standard
+         destDir = path.join(targetDir, '.trae', 'rules', skillName);
+         relativeDest = '.trae/rules/' + skillName;
+    } else {
+        // General fallback
+        destDir = path.join(targetDir, '.hps', 'skills', skillName);
+        relativeDest = '.hps/skills/' + skillName;
+    }
+
+    try {
+        if (fs.existsSync(destDir)) {
+            fs.rmSync(destDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(destDir, { recursive: true });
+
+        // Recursive Copy Helper
+        const copyRecursive = (src, dest) => {
+            const stats = fs.statSync(src);
+            if (stats.isDirectory()) {
+                if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+                fs.readdirSync(src).forEach(child => {
+                    copyRecursive(path.join(src, child), path.join(dest, child));
+                });
+            } else {
+                fs.copyFileSync(src, dest);
+            }
+        };
+
+        copyRecursive(sourceDir, destDir);
+        return `✔ Installed skill to ${relativeDest}`;
+    } catch (err) {
+        return `✖ Failed to install skill: ${err.message}`;
+    }
+}

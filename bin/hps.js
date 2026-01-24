@@ -8,12 +8,8 @@ const { init: initLocales } = require('../src/data/locales');
 
 // Import Commands
 const cmdInit = require('../src/commands/init');
-const cmdNew = require('../src/commands/new');
-const cmdContext = require('../src/commands/context');
-const cmdApply = require('../src/commands/apply');
-const cmdCode = require('../src/commands/code');
-const cmdStart = require('../src/commands/start');
 const cmdDoctor = require('../src/commands/doctor');
+const cmdSkill = require('../src/commands/skill');
 
 // Get Version from package.json (Up one level)
 let version = 'unknown';
@@ -34,7 +30,7 @@ ${c.cyan}███████║${c.reset}${c.dim}██████╔╝${c.r
 ${c.cyan}██╔══██║${c.reset}${c.dim}██╔═══╝ ${c.reset}${c.cyan}╚════██║${c.reset}
 ${c.cyan}██║  ██║${c.reset}${c.dim}██║     ${c.reset}${c.cyan}███████║${c.reset}
 ${c.cyan}╚═╝  ╚═╝${c.reset}${c.dim}╚═╝     ${c.reset}${c.cyan}╚══════╝${c.reset} ${c.magenta}v${version}${c.reset}
-${c.dim}      Halo Plugin Spec Kit${c.reset}
+${c.dim}      Halo Plugin Spec Kit (Agentic Edition)${c.reset}
 `;
 
 function showHelp() {
@@ -43,18 +39,14 @@ function showHelp() {
     
     const pad = (str, len = 25) => str.padEnd(len);
 
-    console.log(`  ${c.green}hps init${c.reset} ${pad('[name]')} ${c.dim}Initialize HPS project & specs${c.reset}`);
-    console.log(`  ${c.green}hps new${c.reset}  ${pad('<feature>')} ${c.dim}Draft a new feature spec${c.reset}`);
-    console.log(`  ${c.green}hps code${c.reset} ${pad('<feature>')} ${c.dim}Generate AI coding prompts${c.reset}`);
-    console.log(`  ${c.green}hps doctor${c.reset} ${pad('')} ${c.dim}Check & fix environment${c.reset}`);
-    console.log(`  ${c.green}hps start${c.reset} ${c.dim}(deprecated)${c.reset}   Launch AI tool`);
-    console.log(`  ${c.green}hps context${c.reset} ${c.dim}(internal)${c.reset}     Assemble context`);
-    console.log(`  ${c.green}hps apply${c.reset} ${c.dim}(internal)${c.reset}       Merge specs`);
+    console.log(`  ${c.green}hps init${c.reset} ${pad('[name]')} ${c.dim}Initialize a new Halo plugin project${c.reset}`);
+    console.log(`  ${c.green}hps doctor${c.reset} ${pad('')} ${c.dim}Check & fix environment dependencies${c.reset}`);
+    console.log(`  ${c.green}hps skill${c.reset} ${pad('')} ${c.dim}Install the AI Skill to your local agent${c.reset}`);
     
-    console.log(`\n${c.bright}💡 Quick Start:${c.reset}`);
-    console.log(`  1. ${c.cyan}hps init my-plugin${c.reset}`);
-    console.log(`  2. ${c.cyan}cd my-plugin && hps new sign-in${c.reset}`);
-    console.log(`  3. ${c.cyan}hps code sign-in${c.reset}`);
+    console.log(`\n${c.bright}💡 Workflow:${c.reset}`);
+    console.log(`  1. Run ${c.cyan}hps doctor${c.reset} to verify Java/Node/Halo env.`);
+    console.log(`  2. Run ${c.cyan}hps init my-plugin${c.reset} to create the project.`);
+    console.log(`  3. Ask your AI Agent: "Help me build a Todo feature for my-plugin."`);
     console.log(``);
 }
 
@@ -75,16 +67,8 @@ const command = args[0];
             await cmdInit(args.slice(1));
         } else if (command === 'doctor') {
             await cmdDoctor(args.slice(1));
-        } else if (command === 'new') {
-            await cmdNew(args.slice(1));
-        } else if (command === 'start') {
-            await cmdStart(args.slice(1));
-        } else if (command === 'context') {
-            await cmdContext(args[1]);
-        } else if (command === 'apply') {
-            await cmdApply(args[1]);
-        } else if (command === 'code') {
-            await cmdCode(args.slice(1));
+        } else if (command === 'skill') {
+            await cmdSkill(args.slice(1));
         } else {
             console.log(`${colors.red}Unknown command: ${command}${colors.reset}`);
             showHelp();

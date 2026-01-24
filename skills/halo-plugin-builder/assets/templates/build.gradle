@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '8.6'
+    id 'run.halo.plugin.devtools' version '0.6.1'
+}
+
+group = 'com.example.plugin'
+version = '0.0.1-SNAPSHOT'
+
+halo {
+    version = '2.21.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('run.halo.tools.platform:plugin:2.21.0')
+    compileOnly 'run.halo.app:api'
+    testImplementation 'run.halo.app:api'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

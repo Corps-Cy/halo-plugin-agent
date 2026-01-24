@@ -2,10 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const { TaskRunner, selectOption, askQuestion, colors, log, BACK_SIGNAL } = require('../core/ui/index');
-const { getHaloContext, generateContextContent, HPS_DIR } = require('../core/utils');
+const { getHaloContext, generateContextContent, HPS_DIR, installSkill } = require('../core/utils');
 const templates = require('../data/templates');
 const { t, setLang, getLang } = require('../data/locales');
-const cmdStart = require('./start');
 const envChecks = require('../core/env/checker');
 const { attemptInstall, getManualLink } = require('../core/env/installer');
 
@@ -164,11 +163,14 @@ async function cmdInit(args) {
     // 7. AI Selection (Moved UP)
     runner.addTask(() => t('config_ai'), async () => {
         const options = [
-            { label: "Gemini (Google)", value: "gemini", description: t('opt_gemini') },
-            { label: "Cursor IDE", value: "cursor", description: t('opt_cursor') },
+            { label: "Opencode Agent", value: "opencode", description: "Install for Opencode (.opencode/skills)" },
+            { label: "Cursor IDE", value: "cursor", description: "Install for Cursor (.cursor/rules)" },
+            { label: "Windsurf IDE", value: "windsurf", description: "Install for Windsurf (.windsurf/rules)" },
+            { label: "Trae IDE", value: "trae", description: "Install for Trae (.trae/rules)" },
+            { label: "GitHub Copilot", value: "copilot", description: "Generate .github/copilot-instructions.md" },
             { label: "Claude Code", value: "claude", description: t('opt_claude') },
-            { label: "GitHub Copilot", value: "copilot", description: t('opt_copilot') },
             { label: "Ollama / Local LLM", value: "ollama", description: t('opt_ollama') },
+            { label: "Gemini (Google)", value: "gemini", description: t('opt_gemini') },
             { label: "General", value: "general", description: t('opt_general') }
         ];
 
@@ -275,50 +277,31 @@ async function cmdInit(args) {
                 const modelfile = `FROM llama3
 SYSTEM """
 ${prompt}
-""`;
+"""`;
                 write(path.join(HPS_DIR, 'Modelfile'), modelfile);
             } else if (selectedTool === 'copilot') {
                 write('.github/copilot-instructions.md', prompt);
             }
+        }
+
+        // Install Agentic Skill (New Feature)
+        try {
+            const skillMsg = installSkill(targetDir, selectedTool);
+            console.log(`\n${colors.cyan}${skillMsg}${colors.reset}`);
+        } catch (e) {
+            console.error("Skill install error:", e.message);
         }
     }, true); // Hidden
 
     // Run TaskRunner
     await runner.run();
     
-    // --- Phase 3: Launch (Post-Execution) ---
-    // Moved outside TaskRunner to prevent "Back" button re-triggering project creation
-    
-    if (selectedTool !== 'general') {
-        const launchPrompt = t('launch_prompt').replace('{tool}', selectedTool);
-        
-        const launchRunner = new TaskRunner();
-        // Hidden task = No progress bar, but task still runs.
-        launchRunner.addTask(() => "Launch Check", async () => {
-            const result = await selectOption(launchPrompt, [
-                { label: t('launch_yes'), value: "yes", description: t('launch_yes_desc') },
-                { label: t('launch_no'), value: "no", description: t('launch_no_desc') }
-            ]);
-            if (result === 'yes') {
-                 pendingLaunch = selectedTool;
-            }
-        }, true);
-        
-        console.log(""); // Spacer
-        await launchRunner.run(); 
-    }
-
-    if (pendingLaunch) {
-        const msg = t('switching_context').replace('{dir}', targetDir);
-        console.log(`\n${colors.cyan}${msg}${colors.reset}\n`);
-        try {
-            process.chdir(targetDir);
-            await cmdStart([pendingLaunch]);
-        } catch (err) {
-            console.error(`Failed to launch: ${err.message}`);
-        }
-    } else if (projectName) {
+    if (projectName) {
         console.log(`${colors.green}${t('project_ready')} cd ${projectName}${colors.reset}`);
+        
+        if (selectedTool !== 'general') {
+            console.log(`${colors.dim}Skill installed for ${selectedTool}. You can now ask your AI agent to help build the plugin.${colors.reset}`);
+        }
     }
 }
 
