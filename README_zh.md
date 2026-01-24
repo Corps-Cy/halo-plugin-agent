@@ -1,13 +1,13 @@
-# Halo Plugin Spec Kit (HPS) - Agentic Edition
+# Halo Plugin Agent (HPA)
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/@cysupper/halo-plugin-spec-kit" alt="npm version" />
+  <img src="https://img.shields.io/npm/v/@cysupper/halo-plugin-agent" alt="npm version" />
   <img src="https://img.shields.io/badge/Halo-2.x-blue" alt="Halo 2.x" />
   <img src="https://img.shields.io/badge/AI-Agentic-purple" alt="AI Agent Ready" />
 </p>
 
 > **让 AI 真正学会开发 Halo 插件。**
-> HPS 不仅仅是一个脚手架，它是一个**AI 技能包 (Agentic Skill)** 分发器。它将 Halo 2.x 的核心架构、开发规范、反模式（Anti-Patterns）打包成专家级 Skill，赋能 Opencode, Cursor, Windsurf, Trae 等 AI 代理，使其具备“全自动开发”插件的能力。
+> HPA (原名 HPS) 不仅仅是一个脚手架，它是一个**AI 技能包 (Agentic Skill)** 分发器。它将 Halo 2.x 的核心架构、开发规范、反模式（Anti-Patterns）打包成专家级 Skill，赋能 Opencode, Cursor, Windsurf, Trae 等 AI 代理，使其具备“全自动开发”插件的能力。
 
 ## 🎥 演示
 
@@ -23,13 +23,13 @@
 ## 📦 安装
 
 ```bash
-npm install -g @cysupper/halo-plugin-spec-kit
+npm install -g @cysupper/halo-plugin-agent
 ```
 
 或者直接使用 `npx`：
 
 ```bash
-npx @cysupper/halo-plugin-spec-kit init
+npx @cysupper/halo-plugin-agent init
 ```
 
 ## 🛠️ 使用指南

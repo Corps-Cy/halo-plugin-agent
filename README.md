@@ -1,13 +1,13 @@
-# Halo Plugin Spec Kit (HPS) - Agentic Edition
+# Halo Plugin Agent (HPA)
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/@cysupper/halo-plugin-spec-kit" alt="npm version" />
+  <img src="https://img.shields.io/npm/v/@cysupper/halo-plugin-agent" alt="npm version" />
   <img src="https://img.shields.io/badge/Halo-2.x-blue" alt="Halo 2.x" />
   <img src="https://img.shields.io/badge/AI-Agentic-purple" alt="AI Agent Ready" />
 </p>
 
 > **Empowering AI to build Halo plugins natively.**
-> HPS is not just a CLI scaffold; it is a **Skill Distributor**. It packages Halo 2.x architecture, development standards, and anti-patterns into expert-level Agentic Skills, enabling AI agents (Opencode, Cursor, Windsurf, Trae) to perform "fully automated development".
+> HPA (formerly HPS) is not just a CLI scaffold; it is a **Skill Distributor**. It packages Halo 2.x architecture, development standards, and anti-patterns into expert-level Agentic Skills, enabling AI agents (Opencode, Cursor, Windsurf) to perform "fully automated development".
 
 [🇨🇳 中文文档](README_zh.md)
 
@@ -25,13 +25,13 @@
 ## 📦 Installation
 
 ```bash
-npm install -g @cysupper/halo-plugin-spec-kit
+npm install -g @cysupper/halo-plugin-agent
 ```
 
 Or use `npx`:
 
 ```bash
-npx @cysupper/halo-plugin-spec-kit init
+npx @cysupper/halo-plugin-agent init
 ```
 
 ## 🛠️ Usage Guide

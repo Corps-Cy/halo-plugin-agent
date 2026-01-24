@@ -1,5 +1,5 @@
 {
-  "name": "@cysupper/halo-plugin-spec-kit",
+  "name": "@cysupper/halo-plugin-agent",
   "version": "2.0.0",
   "description": "Agentic Skill Distributor & CLI for Halo 2.x Plugin Development",
   "main": "bin/hps.js",
@@ -21,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Corps-Cy/halo.plugin.spec-kit.git"
+    "url": "https://github.com/Corps-Cy/halo-plugin-agent.git"
   },
-  "homepage": "https://github.com/Corps-Cy/halo.plugin.spec-kit#readme",
+  "homepage": "https://github.com/Corps-Cy/halo-plugin-agent#readme",
   "bugs": {
-    "url": "https://github.com/Corps-Cy/halo.plugin.spec-kit/issues"
+    "url": "https://github.com/Corps-Cy/halo-plugin-agent/issues"
   },
   "keywords": [
     "halo",
@@ -33,6 +33,7 @@
     "cli",
     "ai",
     "generator",
-    "spec-driven"
+    "agent",
+    "skill"
   ]
 }

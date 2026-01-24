@@ -30,7 +30,7 @@ ${c.cyan}███████║${c.reset}${c.dim}██████╔╝${c.r
 ${c.cyan}██╔══██║${c.reset}${c.dim}██╔═══╝ ${c.reset}${c.cyan}╚════██║${c.reset}
 ${c.cyan}██║  ██║${c.reset}${c.dim}██║     ${c.reset}${c.cyan}███████║${c.reset}
 ${c.cyan}╚═╝  ╚═╝${c.reset}${c.dim}╚═╝     ${c.reset}${c.cyan}╚══════╝${c.reset} ${c.magenta}v${version}${c.reset}
-${c.dim}      Halo Plugin Spec Kit (Agentic Edition)${c.reset}
+${c.dim}      Halo Plugin Agent (Agentic Edition)${c.reset}
 `;
 
 function showHelp() {
