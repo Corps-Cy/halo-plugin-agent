@@ -76,3 +76,5 @@ If the user provides code:
 -   **Frontend Deep Dive**: [frontend_deep_dive.md](references/frontend_deep_dive.md)
 -   **Build & Deploy**: [build_deploy.md](references/build_deploy.md)
 -   **Java Imports**: [java_imports.md](references/java_imports.md)
+-   **Code Patterns**: [patterns.md](references/patterns.md)
+-   **Troubleshooting**: [troubleshooting.md](references/troubleshooting.md)
