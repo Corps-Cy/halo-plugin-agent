@@ -1,6 +1,6 @@
 {
   "name": "@cysupper/halo-plugin-agent",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Agentic Skill Distributor & CLI for Halo 2.x Plugin Development",
   "main": "bin/hps.js",
   "bin": {
